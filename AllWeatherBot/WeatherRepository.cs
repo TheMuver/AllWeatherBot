@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace AllWeatherBot
 {
     /// <summary>
@@ -5,6 +7,6 @@ namespace AllWeatherBot
     /// </summary>
     public interface WeatherRepository
     {
-        Weather GetWeather();
+        Task<Weather> GetWeatherAsync();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,12 +14,15 @@ namespace AllWeatherBot
     {
         static async Task Main(string[] args)
         {
-            WeatherBot bot = new WeatherBot();
-            Task listening = Task.Run(bot.ListenAsync);
-            while (!listening.IsCanceled || !listening.IsCompleted)
-            {
-                Console.ReadLine();
-            }
+            var repos = new YandexWeatherRepository(GetToken("yandex.token"));
+            var weather = await repos.GetWeatherAsync();
+            Console.WriteLine(weather.Fact.Temp + " " + weather.Info.TzInfo.Name);
+            // WeatherBot bot = new WeatherBot();
+            // Task listening = Task.Run(bot.ListenAsync);
+            // while (!listening.IsCompleted)
+            // {
+            //     Console.ReadLine();
+            // }
         }
 
         public static string GetToken(string tokenPath) {
