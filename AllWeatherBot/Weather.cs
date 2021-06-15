@@ -196,7 +196,7 @@ namespace AllWeatherBot
         public int PrecProb { get; set; }
 
         [JsonProperty("prec_strength")]
-        public int PrecStrength { get; set; }
+        public double PrecStrength { get; set; }
 
         [JsonProperty("is_thunder")]
         public bool IsThunder { get; set; }
@@ -358,7 +358,7 @@ namespace AllWeatherBot
         public double SoilMoisture { get; set; }
 
         [JsonProperty("prec_mm")]
-        public int PrecMm { get; set; }
+        public double PrecMm { get; set; }
 
         [JsonProperty("prec_prob")]
         public int PrecProb { get; set; }
@@ -373,7 +373,7 @@ namespace AllWeatherBot
         public int PrecType { get; set; }
 
         [JsonProperty("prec_strength")]
-        public int PrecStrength { get; set; }
+        public double PrecStrength { get; set; }
 
         [JsonProperty("icon")]
         public string Icon { get; set; }
@@ -508,7 +508,7 @@ namespace AllWeatherBot
         public double SoilMoisture { get; set; }
 
         [JsonProperty("prec_mm")]
-        public int PrecMm { get; set; }
+        public double PrecMm { get; set; }
 
         [JsonProperty("prec_prob")]
         public int PrecProb { get; set; }
@@ -523,7 +523,7 @@ namespace AllWeatherBot
         public int PrecType { get; set; }
 
         [JsonProperty("prec_strength")]
-        public int PrecStrength { get; set; }
+        public double PrecStrength { get; set; }
 
         [JsonProperty("icon")]
         public string Icon { get; set; }

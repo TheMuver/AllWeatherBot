@@ -21,14 +21,14 @@ namespace AllWeatherBot
 
         public async Task<Weather> GetWeatherAsync()
         {
-            var time = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            var time = DateTimeOffset.Now.ToUnixTimeSeconds();
             if (_weather == null)
             {
-                _weather = await GetWeatherFromFileAsync();
+                _weather = await GetWeatherFromServerAsync();
             }
-            else if (time - _weather.Now > 1140000)
+            else if (time - _weather.Now > 150) // 2.5 минут = 150 сек
             {
-                //_weather = await GetWeatherFromServerAsync();
+                _weather = await GetWeatherFromServerAsync();
             }
             return _weather;
         }
