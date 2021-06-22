@@ -22,5 +22,10 @@ namespace WeatherBotApi
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        public static string GetToken(string tokenPath)
+        {
+            return System.IO.File.ReadAllText(tokenPath);
+        }
     }
 }

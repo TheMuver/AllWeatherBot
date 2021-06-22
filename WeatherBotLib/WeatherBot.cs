@@ -21,6 +21,12 @@ namespace WeatherBotLib
             Console.WriteLine("Bot has started successfully");
         }
 
+        public WeatherBot SetWebhook(string url)
+        {
+            _client.SetWebhookAsync(url).Wait();
+            return this;
+        }
+
         public async Task ListenAsync()
         {
             try
@@ -96,7 +102,7 @@ namespace WeatherBotLib
                             $" Погода сегодня: \n" +
                             $"  {weather.Fact.Temp}°C (ощущается как {weather.Fact.FeelsLike}°C) \n" +
                             $" Погода завтра: \n" +
-                            $"  {weather.Forecasts[1].Parts.Day.TempAvg}°C" + 
+                            $"  {weather.Forecasts[1].Parts.Day.TempAvg}°C" +
                             $"Яндекс.Погода";
             return answer;
         }
