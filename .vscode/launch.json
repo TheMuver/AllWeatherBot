@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/WeatherBot/bin/Debug/net5.0/WeatherBot.dll",
+            "program": "${workspaceFolder}/WeatherBotApi/bin/Debug/net5.0/WeatherBotApi.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/WeatherBot",
+            "cwd": "${workspaceFolder}/WeatherBotApi",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
