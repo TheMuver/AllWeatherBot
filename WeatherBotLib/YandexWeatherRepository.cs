@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace AllWeatherBot
+namespace WeatherBotLib
 {
     /// <summary>
     /// Получает, отдаёт, обрабатывает информацию о погоде, прешедшую с API яндекса

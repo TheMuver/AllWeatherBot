@@ -7,15 +7,17 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using System.Collections.Generic;
 
-namespace AllWeatherBot
+namespace WeatherBotLib
 {
     public class WeatherBot
     {
-        TelegramBotClient _client = new TelegramBotClient(Program.GetToken("telegram.token"));
-        WeatherRepository _repository = new YandexWeatherRepository(Program.GetToken("yandex.token"));
+        TelegramBotClient _client;
+        WeatherRepository _repository;
 
-        public WeatherBot()
+        public WeatherBot(string telegramToken, string yandexToken)
         {
+            _client = new TelegramBotClient(telegramToken);
+            _repository = new YandexWeatherRepository(yandexToken);
             Console.WriteLine("Bot has started successfully");
         }
 

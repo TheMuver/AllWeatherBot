@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace AllWeatherBot
+namespace WeatherBotLib
 {
     /// <summary>
     /// Репозиторий для получения данных о погоде
