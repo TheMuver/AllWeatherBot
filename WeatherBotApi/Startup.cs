@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -11,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-
+using Telegram.Bot.Types.InputFiles;
 using WeatherBotLib;
 
 namespace WeatherBotApi
@@ -29,7 +30,7 @@ namespace WeatherBotApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<WeatherBot>(new WeatherBot(Program.GetToken("telegram.token"), Program.GetToken("yandex.token"))
-                .SetWebhook("https://f52b3a132495.ngrok.io"));
+                .SetWebhook("https://b4e583e75fcb.ngrok.io", Program.GetStream("cert.cer")));
             services.AddControllers();
             // services.AddSwaggerGen(c =>
             // {

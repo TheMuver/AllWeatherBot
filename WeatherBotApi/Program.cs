@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +26,12 @@ namespace WeatherBotApi
 
         public static string GetToken(string tokenPath)
         {
-            return System.IO.File.ReadAllText(tokenPath);
+            return File.ReadAllText(tokenPath);
+        }
+
+        public static Stream GetStream(string path)
+        {
+            return File.OpenRead(path);
         }
     }
 }

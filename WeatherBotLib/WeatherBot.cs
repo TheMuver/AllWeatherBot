@@ -6,6 +6,8 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using System.Collections.Generic;
+using Telegram.Bot.Types.InputFiles;
+using System.IO;
 
 namespace WeatherBotLib
 {
@@ -21,9 +23,12 @@ namespace WeatherBotLib
             Console.WriteLine("Bot has started successfully");
         }
 
-        public WeatherBot SetWebhook(string url)
+        public WeatherBot SetWebhook(string url, Stream cert)
         {
-            _client.SetWebhookAsync(url).Wait();
+            InputFileStream s = null;
+            if (cert != null) 
+                s = new InputFileStream(cert);
+            _client.SetWebhookAsync(url, certificate: s).Wait();
             return this;
         }
 
