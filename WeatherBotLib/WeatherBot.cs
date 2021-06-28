@@ -23,12 +23,9 @@ namespace WeatherBotLib
             Console.WriteLine("Bot has started successfully");
         }
 
-        public WeatherBot SetWebhook(string url, Stream cert)
+        public WeatherBot SetWebhook(string url)
         {
-            InputFileStream s = null;
-            if (cert != null) 
-                s = new InputFileStream(cert);
-            _client.SetWebhookAsync(url, certificate: s).Wait();
+            _client.SetWebhookAsync(url).Wait();
             return this;
         }
 
@@ -42,11 +39,7 @@ namespace WeatherBotLib
                     Update[] updates = await _client.GetUpdatesAsync(offset);
                     foreach (var update in updates)
                     {
-                        var message = update.Message;
-                        if (message.Type == MessageType.Text)
-                        {
-                            Task.Run(() => HandleMessage(message));
-                        }
+                        Task.Run(() => HandleUpdate(update));
                         offset = update.Id + 1;
                     }
                 }
@@ -55,6 +48,15 @@ namespace WeatherBotLib
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        public async void HandleUpdate(Update update)
+        {
+            var message = update.Message;
+            if (message.Type == MessageType.Text)
+            {
+                Task.Run(() => HandleMessage(message));
             }
         }
 

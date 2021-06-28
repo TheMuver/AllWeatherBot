@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.InputFiles;
 using WeatherBotLib;
 
@@ -30,7 +33,7 @@ namespace WeatherBotApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<WeatherBot>(new WeatherBot(Program.GetToken("telegram.token"), Program.GetToken("yandex.token"))
-                .SetWebhook("https://b4e583e75fcb.ngrok.io", Program.GetStream("cert.cer")));
+                .SetWebhook("https://00b1cf687e97.ngrok.io"));
             services.AddControllers();
             // services.AddSwaggerGen(c =>
             // {
@@ -56,7 +59,21 @@ namespace WeatherBotApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                //endpoints.MapControllers();
+
+                endpoints.MapPost("", async context =>
+                {
+                    Update update;
+                    using (StreamReader sr = new StreamReader(context.Request.BodyReader.AsStream()))
+                        using (JsonTextReader jr = new JsonTextReader(sr))
+                            update = new JsonSerializer().Deserialize<Update>(jr);
+                    app.ApplicationServices.GetService<WeatherBot>().HandleUpdate(update);
+                });
+
+                endpoints.MapGet("", async context =>
+                {
+                    context.Response.StatusCode = 200;
+                });
             });
         }
     }
