@@ -34,22 +34,22 @@ namespace WeatherBotApi
         {
             services.AddSingleton<WeatherBot>(new WeatherBot(Program.GetToken("telegram.token"), Program.GetToken("yandex.token"))
                 .SetWebhook("https://00b1cf687e97.ngrok.io"));
-            services.AddControllers();
-            // services.AddSwaggerGen(c =>
-            // {
-            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WeatherBotApi", Version = "v1", Description = "Api тг-бота, предоставляющего информацию о погоде."});
-            // });
+            services.AddControllers().AddNewtonsoftJson();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WeatherBotApi", Version = "v1", Description = "Api тг-бота, предоставляющего информацию о погоде."});
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // if (env.IsDevelopment())
-            // {
-            //     app.UseDeveloperExceptionPage();
-            //     app.UseSwagger();
-            //     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WeatherBotApi v1"));
-            // }
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WeatherBotApi v1"));
+            }
 
             app.UseHttpsRedirection();
 
@@ -59,21 +59,7 @@ namespace WeatherBotApi
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapControllers();
-
-                endpoints.MapPost("", async context =>
-                {
-                    Update update;
-                    using (StreamReader sr = new StreamReader(context.Request.BodyReader.AsStream()))
-                        using (JsonTextReader jr = new JsonTextReader(sr))
-                            update = new JsonSerializer().Deserialize<Update>(jr);
-                    app.ApplicationServices.GetService<WeatherBot>().HandleUpdate(update);
-                });
-
-                endpoints.MapGet("", async context =>
-                {
-                    context.Response.StatusCode = 200;
-                });
+                endpoints.MapControllers();
             });
         }
     }

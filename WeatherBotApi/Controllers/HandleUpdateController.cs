@@ -32,8 +32,8 @@ namespace WeatherBotApi.Controllers
             Console.WriteLine("hey!");
             try
             {
-                _bot.HandleMessage(update.Message);
-                return Ok("True");
+                _bot.HandleUpdate(update);
+                return Ok();
             } catch (Exception e) {
                 _logger.LogCritical(new EventId(0), e, "bot cann't handle message");
                 return StatusCode(StatusCodes.Status500InternalServerError);
